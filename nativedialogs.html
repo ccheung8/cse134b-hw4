@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <!-- DOMPURIFY -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/dompurify/3.0.1/purify.js" integrity="sha512-TRW4uJEyH03RBYDDP/0Nerf3y1zPCPzmLBq5IwjYtUyPD505Aro7Xh6ELpKmnH3yeKj6MP3meheJMJXB4aN0eQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+  <title>Simple Dialogs</title>
+</head>
+<body>
+  <button id="alert">Alert</button>
+  <button id="confirm">Confirm</button>
+  <button id="prompt">Prompt</button>
+  <button id="safer-prompt">Safer Prompt</button>
+  <p id="output"></p>
+  <output id="confirmOutput" for="confirm"></output>
+
+  <script>
+    const alertBtn = document.getElementById("alert");
+    const confirmBtn = document.getElementById("confirm");
+    const confirmOutput = document.getElementById("confirmOutput");
+    const promptBtn = document.getElementById("prompt");
+    const output = document.getElementById("output");
+    const safer_promptBtn = document.getElementById("safer-prompt");
+    
+    alertBtn.addEventListener('click', () => {
+      alert('Button clicked')
+    });
+    
+    confirmBtn.addEventListener('click', () => {
+      output.textContent = ""
+      confirmOutput.textContent = ""
+      confirmOutput.innerHTML = `The value returned by the confirm method is: ${confirm("do you confirm this?")} <br>`
+    });
+    
+    promptBtn.addEventListener('click', () => {
+      confirmOutput.textContent = ""
+      output.textContent = ""
+      let input = prompt("Enter some text:")
+      // empty string
+      if (!input) {
+        input = `User didn't enter anything`
+      }
+      console.log(input)
+      output.innerHTML = `You entered: ${input}`
+    });
+
+    safer_promptBtn.addEventListener('click', () => {
+      confirmOutput.textContent = ""
+      output.textContent = ""
+      let input = prompt("Enter some text:")
+      let clean = DOMPurify.sanitize(input)
+      // empty string
+      if (!clean) {
+        clean = `User didn't enter anything`
+      }
+      output.innerHTML = `You entered: ${clean}`
+    });
+    
+  </script>
+</body>
+</html>

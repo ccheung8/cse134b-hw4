@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <!-- DOMPURIFY -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/dompurify/3.0.1/purify.js" integrity="sha512-TRW4uJEyH03RBYDDP/0Nerf3y1zPCPzmLBq5IwjYtUyPD505Aro7Xh6ELpKmnH3yeKj6MP3meheJMJXB4aN0eQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+  <title>Custom Dialogs</title>
+</head>
+<body>
+  <button id="alertBtn">Alert</button>
+  <button id="confirmBtn">Confirm</button>
+  <button id="promptBtn">Prompt</button><br>
+  <output id="confirmOutput" for="confirm"></output>
+  <p id="promptOutput"></p>
+
+  <dialog id="alertDialog">
+    <p>Alert pressed!</p>
+    <form method="dialog">
+      <button>Ok</button>
+    </form>
+  </dialog>
+
+  <dialog id="confirmDialog">
+    <p id="confirmMsg"></p>
+    <form method="dialog">
+      <button id="cancel">Cancel</button>
+      <button id="ok">Ok</button>
+    </form>
+  </dialog>
+
+  <dialog id="promptDialog">
+    <p id="promptMsg"></p>
+    <form method="dialog">
+      <input id="textResponse" type="text"><br><br>
+      <button id="cancelPrompt">Cancel</button>
+      <button id="okPrompt">Ok</button>
+    </form>
+  </dialog>
+
+  <script type="module">
+    import {confirm, prompt} from '/customdialog.js';
+
+    const alertBtn = document.getElementById("alertBtn");
+    const alertDialog = document.getElementById("alertDialog");
+    const confirmBtn = document.getElementById("confirmBtn");
+    const promptBtn = document.getElementById("promptBtn");
+    const promptDialog = document.getElementById("promptDialog");
+
+    alertBtn.addEventListener('click', () => {
+      alertDialog.showModal()
+    });
+
+    confirmBtn.addEventListener('click', () => {
+      confirm("Do you confirm this?")
+    });
+
+    promptBtn.addEventListener('click', () => {
+      prompt("Enter some text")
+    });
+
+  </script>
+</body>
+</html>
