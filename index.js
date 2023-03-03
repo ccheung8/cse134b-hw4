@@ -1,11 +1,19 @@
-// const canvas = document.getElementById("canvas");
+const left = document.getElementById("left-side");
+const hero = document.getElementById("hero");
+const nav = document.getElementsByTagName("nav");
 
-// const canvasCtx = canvas.getContext("2d");
-// canvasCtx.fillStyle = "yellow";
-// canvasCtx.fillRect(25, 50, 100, 100);
+console.log(nav[0]);
 
-// canvasCtx.fillStyle = "blue";
-// canvasCtx.fillRect(50, 75, 50, 50);
+// hero on home page
+const handleOnMove = e => {
+  // calcs width of window as percentage based on mouse pos
+  const p = e.clientX / window.innerWidth * 100;
 
-// canvasCtx.fillStyle = "red";
-// canvasCtx.fillRect(62.5, 87.5, 25, 25);
+  // assigns to width attribute
+  left.style.width = `${p}%`;
+}
+
+// binds mouse move listeners
+hero.onmousemove = e => handleOnMove(e);
+// on touch for touchscreens
+hero.ontouchmove = e => handleOnMove(e.touches[0]);

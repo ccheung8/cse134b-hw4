@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Styled CRUD</title>
+</head>
+<body>
+  <h1>My Blog</h1>
+
+  <div id="blog-items">
+  </div>
+  
+  <template id="addTemp">
+    <button id="addBtn" onclick="addWindow()">Add Blog</button>
+  </template>
+
+  <dialog id="editDialog">
+    <form method="dialog" id="editForm">
+      <label for="editTitle">Title: </label>
+      <input type="text" id="editTitle" name="title"> <br>
+      <!-- <label for="blogDate"></label> -->
+      <label for="editSummary">Summary: </label>
+      <input type="text" id="editSummary" name="summary"> <br>
+      <button id="editCancel">Cancel</button>
+      <button id="editSave" type="submit">Save</button>
+    </form>
+  </dialog>
+
+  <!-- <dialog id="deleteDialog">
+    <p>Delete blog?</p>
+    <form method="dialog">
+      <button>Cancel</button>
+      <button id="okDel">Ok</button>
+    </form>
+  </dialog> -->
+
+  <dialog id="addDialog">
+    <form method="dialog">
+      <label for="blogTitle">Title: </label>
+      <input type="text" id="blogTitle" name="title"> <br>
+      <!-- <label for="blogDate"></label> -->
+      <label for="blogSummary">Summary: </label>
+      <input type="text" id="blogSummary" name="summary"> <br>
+      <button id="addCancel" onclick="cancelAdd()">Cancel</button>
+      <button id="addSave" onclick="add()">Save</button>
+    </form>
+  </dialog>
+
+  <script type="module">
+    import {listItems, editPost, cancelAdd, addWindow, deletePost, add} from './blog.js';
+
+    listItems();
+
+    window.editPost = editPost;
+    window.deletePost = deletePost;
+    window.add = add;
+    window.addWindow = addWindow;
+    window.cancelAdd = cancelAdd;
+    
+    const addTemp = document.getElementById("addTemp");
+    // appends add button at end
+    const addTempCopy = addTemp.content.cloneNode(true);
+    document.body.appendChild(addTempCopy);
+  </script>
+</body>
+</html>

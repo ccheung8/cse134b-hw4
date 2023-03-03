@@ -4,6 +4,7 @@
   --light: rgb(254, 233, 189);
   --dark: #1b1a27;
   --green: rgba(41,125,67);
+  --hacker-green: #00df12;
   --subtitle-color: #969696;
   --medium-font-weight: 500;
   --nav-font-weight: 600;
@@ -17,8 +18,25 @@
 }
 
 @font-face {
+  font-family: "Karla";
+  src: url(/fonts/Karla-VariableFont_wght.ttf);
+}
+
+@font-face {
   font-family: "Lobster";
   src: url(/fonts/Lobster-Regular.ttf);
+}
+
+@keyframes slideOutLeft {
+  0% {
+    width: 100%;
+  }
+  50% {
+    width: 0%;
+  }
+  100% {
+    width: 100%;
+  }
 }
 
 /* GLOBAL STYLES */
@@ -30,13 +48,6 @@ body {
 }
 
 h1 {
-  color: white;
-  font-size: 8vw;
-  margin: 0 15vw;
-  width: 70vw;
-}
-
-h2 {
   font-size: 4.8rem;
   font-weight: var(--nav-font-weight);
   margin: 0;
@@ -67,6 +78,7 @@ p {
   font-size: 1.8rem;
   line-height: 30px;
   margin: 0;
+  font-family: "Karla", "Rubik", Arial, Helvetica, sans-serif;
 }
 
 ul {
@@ -195,21 +207,59 @@ footer {
 /* HERO SECTION */
 #hero {
   height: 100vh;
-  width: 100vw;
-  background-color: var(--light);
-  display: grid;
-  place-items: center;
 }
 
-#hero > h1 {
-  color: var(--dark);
+.side {
+  height: 100vh;
+  width: 100%;
+
+  display: grid;
+  place-items: center;
+
+  overflow: hidden;
+  position: absolute;
+}
+
+.side .title {
+  color: white;
+  font-size: 8vw;
+  margin: 0 15vw;
+  width: 70vw;
 }
 
 .fancy {
-  font-family: 'Lobster', Arial, Helvetica, sans-serif;
+  font-family: 'Lobster', cursive;
   font-size: 1.3em;
   line-height: .8em;
+}
+
+#left-side {
+  background-color: var(--light);
+  z-index: 2;
+  /* Starting animation */
+  animation-name: slideOutLeft;
+  animation-timing-function: var(--transition-function);
+  animation-delay: .2s;
+  animation-duration: 2.5s;
+  width: 100%;
+  height: 100vh;
+}
+
+#left-side .title {
+  color: var(--dark);
+}
+
+#left-side .fancy {
   color: var(--green);
+}
+
+#right-side {
+  background-color: var(--dark);
+  height: 100vh;
+}
+
+#right-side .fancy {
+  color: var(--hacker-green);
 }
 
 /* WORK SECTION */
@@ -301,6 +351,87 @@ footer {
   color: var(--subtitle-color);
 }
 
+#values {
+  margin: 0 144px;
+}
+
+.value-item {
+  padding: 144px 72px;
+}
+
+.value-item p {
+  font-size: 2.4rem;
+  line-height: 48px;
+}
+
+.neon {
+  text-align: center;
+  letter-spacing: 5px;
+  font-size: 13rem;
+  font-weight: 400;
+  margin-bottom: 56px;
+}
+
+.value-item:nth-child(1) .neon {
+  color: #FFD5FF;
+  text-shadow: 
+    1px 0px 4px #FFD5FF, 
+    2px 0px 4px #FFD5FF, 
+    3px 0px 4px #FFD5FF, 
+    2px 0px 3px #D42CCA, 
+    2px 3px 15px #D42CCA, 
+    2px 0px 15px, 
+    5px 0px 125px, 
+    20px 0vw 200px #D42CCA,
+    40px 0vw 200px #D42CCA;
+}
+
+.value-item:nth-child(2) .neon {
+  color: #f3fe00;
+  text-shadow: 
+    1px 0px 4px #f3fe00, 
+    2px 0px 4px #f3fe00, 
+    3px 0px 4px #f3fe00, 
+    2px 0px 3px #dce52e, 
+    2px 3px 15px #dce52e, 
+    2px 0px 15px, 
+    5px 0px 125px, 
+    20px 0vw 200px #dce52e,
+    40px 0vw 200px #dce52e;
+}
+
+.value-item:nth-child(3) .neon {
+  color: #01ffff;
+  text-shadow: 
+    1px 0px 4px #01ffff, 
+    2px 0px 4px #01ffff, 
+    3px 0px 4px #01ffff, 
+    2px 0px 3px #2fe6e6, 
+    2px 3px 15px #2fe6e6, 
+    2px 0px 15px, 
+    5px 0px 125px, 
+    20px 0vw 200px #2fe6e6,
+    40px 0vw 200px #2fe6e6;
+}
+
+/* Flicker animation */
+@keyframes flicker {
+  0%, 19.999%, 22%, 62.999%, 64%, 64.999%, 70%, 100% {
+    opacity: .99;
+  }
+  20%, 21.999%, 63%, 63.999%, 65%, 69.999% {
+    opacity: .3;
+  }
+}
+
+.flicker-fast {
+  animation: flicker 1s linear infinite;
+}
+
+.flicker-slow {
+  animation: flicker 3s linear infinite;
+}
+
 /* TABLET */
 @media only screen and (max-width: 1200px) {
   h3 {
@@ -362,14 +493,23 @@ footer {
   .about-content {
     margin-top: 48px;
   }
+
+  #values {
+    margin: 0;
+  }
+
+  .value-item {
+    padding: 144px 56px;
+  }
+
+  .neon {
+    font-size: 9rem;
+    margin-bottom: 48px;
+  }
 }
 
 /* MOBILE and below */
 @media only screen and (max-width: 700px) {
-  h1 {
-    font-size: 15vw;
-    margin: 0 5vw;
-  }
 
   nav ul {
     display: none;
@@ -416,4 +556,17 @@ footer {
   width: 100%;
   margin: 0 0 56px;
  }
+
+ .neon {
+  font-size: 5rem;
+ }
+
+ .value-item {
+  padding: 104px 36px;
+}
+
+ .value-item p {
+  font-size: 1.8rem;
+  line-height: 36px;
+}
 }
